@@ -11,11 +11,15 @@ def main():
         
         com1.enable()
         print("Abriu a comunicação")
-        
-        imageR = "/home/guedera/Documents/Aulas/Camadas/projeto1CamadaFisica/HandOut/imgs/image.png"
-        imageW = "/home/guedera/Documents/Aulas/Camadas/projeto1CamadaFisica/HandOut/imgs/copia.png"
 
-        txBuffer = open(imageR, 'rb').read()
+        time.sleep(.2) 
+        com1.sendData(b'00') 
+        time.sleep(1)
+
+        print('\n')
+        print("Enviou o bit de sacrifício.")
+        
+        txBuffer = b'\x13\x12'
         
         print("Meu array de bytes tem tamanho {}" .format(len(txBuffer)))
         
@@ -25,19 +29,7 @@ def main():
         txSize = com1.tx.getStatus()
         print('enviou = {} bytes' .format(txSize))
         
-        print("\n")
-        print("Recepção iniciada!")
-        print("\n")
-
         txLen = len(txBuffer)
-        rxBuffer, nRx = com1.getData(txLen)
-        print("recebeu {} bytes" .format(len(rxBuffer)))
-        print("\n")
-        
-        f = open(imageW, 'wb')
-        f.write(rxBuffer)
-
-        f.close()
 
         print("-------------------------")
         print("Comunicação encerrada")
