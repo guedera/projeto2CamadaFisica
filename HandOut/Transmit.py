@@ -19,7 +19,9 @@ def main():
         print('\n')
         print("Enviou o bit de sacrifício.")
         
-        txBuffer = b'\x13\x12'
+        numeros_f = []
+
+        txBuffer = b'/001' #len(numeros_f) em hexadex
         
         print("Meu array de bytes tem tamanho {}" .format(len(txBuffer)))
         
