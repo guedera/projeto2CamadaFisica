@@ -68,10 +68,6 @@ def main():
             time.sleep(.05)
         
 
-        #verificar se o thread está sendo usada, ou seja se estamos inserindo informações novas no buffer
-        while com1.tx.getIsBussy():
-            time.sleep(.05)
-
         txlen = com1.tx.getBufferLen()
         rxBuffer, nRx = com1.getData(txlen)
         print("recebeu {} bytes" .format(len(rxBuffer)))
