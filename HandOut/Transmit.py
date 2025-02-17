@@ -12,8 +12,8 @@ def main():
         com1.enable()
         print("Abriu a comunicação")
 
-        time.sleep(.2) 
-        com1.sendData(b'00') 
+        time.sleep(.2)
+        com1.sendData(b'00')
         time.sleep(1)
 
         print('\n')
@@ -21,7 +21,7 @@ def main():
         
         numeros_f = []
 
-        txBuffer = b'/001' #len(numeros_f) em hexadex
+        txBuffer = b'\x13' #
         
         print("Meu array de bytes tem tamanho {}" .format(len(txBuffer)))
         
