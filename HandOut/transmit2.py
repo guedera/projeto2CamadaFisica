@@ -2,42 +2,32 @@ from enlace import *
 import time
 import numpy as np
 
-serialName = "/dev/ttyACM0"  # Porta no Ubuntu
+# Porta usada no Ubuntu (ajuste se necessário)
+serialName = "/dev/ttyACM0"           
 
 def main():
     try:
-        print("Iniciou o main")
+        print("Iniciando transmissão (Transmite.py)")
         com1 = enlace(serialName)
-        
         com1.enable()
-        print("Abriu a comunicação")
+        print("Comunicação aberta.")
 
-        time.sleep(.2)
-        com1.sendData(b'\x00')  # Enviar um único byte de sacrifício
-        time.sleep(1)
+        # Prepara 1 byte para enviar (por exemplo, 0xAA)
+        txBuffer = np.asarray([0xAA], dtype=np.uint8)
+        print("Enviando 1 byte...")
+        com1.sendData(txBuffer)
 
-        print('\n')
-        print("Enviou o bit de sacrifício.")
-        
-        txBuffer = b'\x13' 
-        
-        print("Meu array de bytes tem tamanho {}" .format(len(txBuffer)))
-        
-        print("Transmissão iniciada!")
-        com1.sendData(np.asarray(txBuffer))
-        
+        # Verifica quantos bytes foram efetivamente enviados
         txSize = com1.tx.getStatus()
-        print('enviou = {} bytes' .format(txSize))
-        
-        print("-------------------------")
-        print("Comunicação encerrada")
-        print("-------------------------")
+        print("Enviados {} byte(s).".format(txSize))
+
         com1.disable()
+        print("Transmissão encerrada.")
         
     except Exception as erro:
-        print("ops! :-\\")
+        print("Ops! Ocorreu um erro:")
         print(erro)
         com1.disable()
-        
+
 if __name__ == "__main__":
     main()

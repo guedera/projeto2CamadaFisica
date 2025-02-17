@@ -1,56 +1,28 @@
 from enlace import *
 import time
-import numpy as np
 
-serialName = "COM7"  # Porta no Windows
+# Porta COM usada no Windows (ajuste se necessário)
+serialName = "COM7"           
 
 def main():
     try:
-        print("Iniciou o main")
+        print("Iniciando servidor de recepção (server.py)")
         com1 = enlace(serialName)
-        
         com1.enable()
-        print("Abriu a comunicação")
+        print("Comunicação aberta.")
 
-        print("esperando 1 byte de sacrifício")
+        print("Aguardando o recebimento de 1 byte...")
+        # Recebe 1 byte
         rxBuffer, nRx = com1.getData(1)
-        if nRx > 0:
-            print("Recebeu o byte de sacrificio:", rxBuffer)
-        else:
-            print("Não recebeu o byte de sacrificio")
-        com1.rx.clearBuffer()
-        time.sleep(.1)
-        
-        print("\n")
-        print("Recepção iniciada!")
-        print("\n")
+        print("Recebeu {} byte(s): {}".format(nRx, rxBuffer))
 
-        while com1.rx.getIsEmpty():  
-            time.sleep(.05)
-        
-        while com1.tx.getIsBussy():
-            time.sleep(.05)
-
-        txlen = com1.tx.getBufferLen()
-        rxBuffer, nRx = com1.getData(txlen)
-        print("recebeu {} bytes" .format(len(rxBuffer)))
-        print("\n")
-
-        obtido = com1.rx.getNData(rxBuffer)
-
-        print("\n")
-        print("\n")
-
-        print(f"OS DADOS OBTIDOS FORAM: {obtido}")
-        print("-------------------------")
-        print("Comunicação encerrada")
-        print("-------------------------")
         com1.disable()
+        print("Servidor encerrado.")
         
     except Exception as erro:
-        print("ops! :-\\")
+        print("Ops! Ocorreu um erro:")
         print(erro)
         com1.disable()
-        
+
 if __name__ == "__main__":
     main()
