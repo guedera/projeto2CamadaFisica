@@ -2,7 +2,7 @@ from enlace import *
 import time
 import numpy as np
 
-serialName = "/dev/ttyACM0"
+serialName = "/dev/ttyACM0"  # Porta no Ubuntu
 
 def main():
     try:
@@ -10,8 +10,15 @@ def main():
         com1 = enlace(serialName)
         
         com1.enable()
-        
         print("Abriu a comunicação")
+
+        time.sleep(.2)
+        com1.sendData(b'\x00')  # Enviar um único byte de sacrifício
+        time.sleep(1)
+
+        print('\n')
+        print("Enviou o bit de sacrifício.")
+        
         txBuffer = b'\x13' 
         
         print("Meu array de bytes tem tamanho {}" .format(len(txBuffer)))
