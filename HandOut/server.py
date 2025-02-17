@@ -38,11 +38,11 @@ def main():
         #Se chegamos até aqui, a comunicação foi aberta com sucesso. Faça um print para informar.
         print("Abriu a comunicação")
 
-        print("esperando 1 byte de sacrifício")
-        rxBuffer, nRx = com1.getData(1)
-        com1.rx.clearBuffer()
-        time.sleep(.1)
-        print("Recebeu o byte de sacrificio")
+        # print("esperando 1 byte de sacrifício")
+        # rxBuffer, nRx = com1.getData(1)
+        # com1.rx.clearBuffer()
+        # time.sleep(.1)
+        # print("Recebeu o byte de sacrificio")
         
            
                   
@@ -64,6 +64,7 @@ def main():
 
         #dar o tempo de receber o buffer
         while com1.rx.getIsEmpty():  
+            print("Não recebi nada!!!")
             time.sleep(.05)
         
 
