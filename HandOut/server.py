@@ -20,11 +20,10 @@ import numpy as np
 # se estiver usando windows, o gerenciador de dispositivos informa a porta
 
 #use uma das 3 opcoes para atribuir à variável a porta usada
-serialName = "/dev/ttyACM0"           # Ubuntu (variacao de)
+# serialName = "/dev/ttyACM0"           # Ubuntu (variacao de)
 #serialName = "/dev/tty.usbmodem1411" # Mac    (variacao de)
-#serialName = "COM4"                  # Windows(variacao de)  detectar sua porta e substituir aqui
+serialName = "COM4"                  # Windows(variacao de)  detectar sua porta e substituir aqui
 
-#ENZAO ATUALIZAR AQUI!!! O MEU É UBUNTU NO SEU SERÁ COM4!!!
 
 def main():
     try:
@@ -62,13 +61,28 @@ def main():
         
 
         #mandando 1 byte para verificar qual o tamanho do nosso numero.
-        txLen = 1
-        rxBuffer, nRx = com1.getData(txLen)
+
+        #dar o tempo de receber o buffer
+        while com1.rx.getIsEmpty():  
+            time.sleep(.05)
+        
+
+        #verificar se o thread está sendo usada, ou seja se estamos inserindo informações novas no buffer
+        while com1.tx.getIsBussy():
+            time.sleep(.05)
+
+        txlen = com1.tx.getBufferLen()
+        rxBuffer, nRx = com1.getData(txlen)
         print("recebeu {} bytes" .format(len(rxBuffer)))
         print("\n")
 
             
-    
+        obtido = com1.rx.getNData(rxBuffer)
+
+        print("\n")
+        print("\n")
+
+        print(f"OS DADOS OBTIDOS FORAM: {obtido}")
         print("-------------------------")
         print("Comunicação encerrada")
         print("-------------------------")
