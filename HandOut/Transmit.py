@@ -3,6 +3,7 @@ import time
 import numpy as np
 
 serialName = "/dev/ttyACM0"
+serialName = "/dev/ttyACM0"
 
 def main():
     try:
@@ -10,6 +11,7 @@ def main():
         com1 = enlace(serialName)
         
         com1.enable()
+        
         
         print("Abriu a comunicação")
 
@@ -23,6 +25,7 @@ def main():
         numeros_f = []
 
         txBuffer = b'/001' #len(numeros_f) em hexadex
+        txBuffer = b'\x13' 
         
         print("Meu array de bytes tem tamanho {}" .format(len(txBuffer)))
         
