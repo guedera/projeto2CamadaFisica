@@ -12,7 +12,8 @@ def main():
         com1.enable()
         
         print("Abriu a comunicação")
-        txBuffer = b'\x13' 
+        txBuffer = b'\x13\x12' 
+        print(txBuffer)
         
         print("Meu array de bytes tem tamanho {}" .format(len(txBuffer)))
         

@@ -7,7 +7,8 @@ serialName = "/dev/ttyACM0"  # Porta no Ubuntu
 def main():
     try:
         com1 = enlace(serialName)
-        if com1.enable():
+        com1.enable()
+        if True:
             print("Comunicação aberta")
             com1.sendData(b'\x01')  # Envia um byte de teste
             print("Byte enviado")

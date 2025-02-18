@@ -63,27 +63,18 @@ def main():
         #mandando 1 byte para verificar qual o tamanho do nosso numero.
 
         #dar o tempo de receber o buffer
-        while com1.rx.getIsEmpty():  
-            print("Não recebi nada!!!")
-            time.sleep(.05)
+
         
+        txLen = 2.0
 
-        #verificar se o thread está sendo usada, ou seja se estamos inserindo informações novas no buffer
-        while com1.tx.getIsBussy():
-            time.sleep(.05)
-
-        txlen = com1.tx.getBufferLen()
-        rxBuffer, nRx = com1.getData(txlen)
+        rxBuffer, nRx = com1.getData(txLen)
         print("recebeu {} bytes" .format(len(rxBuffer)))
         print("\n")
 
-            
-        obtido = com1.rx.getNData(rxBuffer)
 
         print("\n")
         print("\n")
-
-        print(f"OS DADOS OBTIDOS FORAM: {obtido}")
+        print(txLen)
         print("-------------------------")
         print("Comunicação encerrada")
         print("-------------------------")
