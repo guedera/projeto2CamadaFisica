@@ -10,6 +10,7 @@ def main():
     # Instancia a camada de enlace e habilita a comunicação
     com = enlace(serialName)
     com.enable()
+    time.sleep(2)
 
     # Cria buffer com 1 byte: "\x13"
     txBuffer = b"\x13"

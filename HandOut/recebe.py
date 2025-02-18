@@ -10,6 +10,7 @@ def main():
     # Instancia a camada de enlace e habilita a comunicação
     com = enlace(serialName)
     com.enable()
+    time.sleep(2)
 
     print("Aguardando recebimento de dados...")
     # Aguarda e lê 1 byte recebido
