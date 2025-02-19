@@ -10,11 +10,13 @@ def main():
         com1 = enlace(serialName)
         
         com1.enable()
+        time.sleep(2.0)
+        
 
         print("esperando 1 byte de sacrifício")
         rxBuffer, nRx = com1.getData(1)
         com1.rx.clearBuffer()
-        time.sleep(.1)
+        time.sleep(2.0)
        
         print("Abriu a comunicação")
 
