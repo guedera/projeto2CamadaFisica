@@ -47,18 +47,17 @@ def main():
         print("Recepção iniciada!")
         print("\n")
 
-        txlen = com1.tx.getBufferLen()
-        rxBuffer, nRx = com1.getData(txlen)
+        rxBuffer, nRx = com1.getData(1)
         print("recebeu {} bytes" .format(len(rxBuffer)))
         print("\n")
 
             
-        obtido = com1.rx.getNData(rxBuffer)
+        # obtido = com1.rx.getNData(rxBuffer)
 
         print("\n")
         print("\n")
 
-        print(f"OS DADOS OBTIDOS FORAM: {obtido}")
+        print(f"OS DADOS OBTIDOS FORAM: {rxBuffer}")
         print("-------------------------")
         print("Comunicação encerrada")
         print("-------------------------")
