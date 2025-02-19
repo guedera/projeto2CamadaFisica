@@ -2,7 +2,7 @@ from enlace import *
 import time
 from IEEEToFloat import bytes_to_float
 
-serialName = "COM7"
+serialName = "/dev/ttyACM0"
 
 def main():
     try:
@@ -16,7 +16,7 @@ def main():
         print("esperando 1 byte de sacrifício")
         rxBuffer, nRx = com1.getData(1)
         com1.rx.clearBuffer()
-        time.sleep(2.0)
+        time.sleep(2)
        
         print("Abriu a comunicação")
 
