@@ -22,7 +22,7 @@ import numpy as np
 #use uma das 3 opcoes para atribuir à variável a porta usada
 # serialName = "/dev/ttyACM0"           # Ubuntu (variacao de)
 #serialName = "/dev/tty.usbmodem1411" # Mac    (variacao de)
-serialName = "COM4"                  # Windows(variacao de)  detectar sua porta e substituir aqui
+serialName = "/dev/ttyACM0"                  # Windows(variacao de)  detectar sua porta e substituir aqui
 
 
 def main():
@@ -35,42 +35,17 @@ def main():
     
         # Ativa comunicacao. Inicia os threads e a comunicação seiral 
         com1.enable()
-        #Se chegamos até aqui, a comunicação foi aberta com sucesso. Faça um print para informar.
+
+        print("esperando 1 byte de sacrifício")
+        rxBuffer, nRx = com1.getData(1)
+        com1.rx.clearBuffer()
+        time.sleep(.1)
+       
         print("Abriu a comunicação")
 
-        # print("esperando 1 byte de sacrifício")
-        # rxBuffer, nRx = com1.getData(1)
-        # com1.rx.clearBuffer()
-        # time.sleep(.1)
-        # print("Recebeu o byte de sacrificio")
-        
-           
-                  
-        
-        #cada numero tem 32 bits ou 4 bytes
-
-        
         print("\n")
         print("Recepção iniciada!")
         print("\n")
-
-        #Será que todos os bytes enviados estão realmente guardadas? Será que conseguimos verificar?
-        #Veja o que faz a funcao do enlaceRX  getBufferLen
-
-        
-        
-
-        #mandando 1 byte para verificar qual o tamanho do nosso numero.
-
-        #dar o tempo de receber o buffer
-        while com1.rx.getIsEmpty():  
-            print("Não recebi nada!!!")
-            time.sleep(.05)
-        
-
-        #verificar se o thread está sendo usada, ou seja se estamos inserindo informações novas no buffer
-        while com1.tx.getIsBussy():
-            time.sleep(.05)
 
         txlen = com1.tx.getBufferLen()
         rxBuffer, nRx = com1.getData(txlen)

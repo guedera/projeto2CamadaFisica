@@ -10,6 +10,10 @@ def main():
         com1 = enlace(serialName)
         
         com1.enable()
+
+        time.sleep(.2)
+        com1.sendData(b'00')
+        time.sleep(1)
         
         print("Abriu a comunicação")
         txBuffer = b'\x13' 
@@ -18,6 +22,7 @@ def main():
         
         print("Transmissão iniciada!")
         com1.sendData(np.asarray(txBuffer))
+        time.sleep(2)
         
         txSize = com1.tx.getStatus()
         print('enviou = {} bytes' .format(txSize))
