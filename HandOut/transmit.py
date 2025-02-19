@@ -1,8 +1,11 @@
 from enlace import *
 import time
 import numpy as np
+from floatToIEEE import float_to_ieee754
 
-serialName = "COM7"
+serialName = "/dev/ttyACM0"
+
+lista = [1.3424, 54.45544, 200.002]
 
 def main():
     try:
@@ -11,16 +14,17 @@ def main():
         
         com1.enable()
 
-
         print("comecando BS")
         time.sleep(2)
         com1.sendData(b'00')
-        time.sleep(1)
+        time.sleep(2)
         print("enviando bit de sacrificio")
         
-        print("Abriu a comunicação")
-        txBuffer = b'\x13' 
-        
+        print("Abriu a comunicação, vou enviar 12 bytes.")
+        time.sleep(2)
+        # Converte a lista de floats para o formato IEEE 754
+        txBuffer = bytearray(float_to_ieee754(lista))
+        print(txBuffer)
         print("Meu array de bytes tem tamanho {}" .format(len(txBuffer)))
         
         print("Transmissão iniciada!")
