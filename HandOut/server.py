@@ -2,7 +2,7 @@ from enlace import *
 import time
 from IEEEToFloat import bytes_to_float
 
-serialName = "/dev/ttyACM0"
+serialName = "COM7"
 
 def main():
     try:
@@ -11,29 +11,41 @@ def main():
         
         com1.enable()
         time.sleep(2.0)
-        
 
         print("esperando 1 byte de sacrifício")
-        rxBuffer, nRx = com1.getData(1)
+        # Recebe o byte de sacrifício e o descarta
+        com1.getData(1)
         com1.rx.clearBuffer()
-        time.sleep(2)
+        time.sleep(2.0)
        
         print("Abriu a comunicação")
-
         print("\n")
         print("Recepção iniciada!")
         print("\n")
 
-        rxBuffer, nRx = com1.getData(12)
-        print("recebeu {} bytes".format(nRx))
-        print("\n")
+        # Recebe o byte que indica o comprimento total dos dados a receber em bytes
+        lengthData, lengthReceived = com1.getData(1)
+        if lengthData and lengthReceived == 1:
+            totalDataLength = lengthData[0]
+            print(f"Esperando receber {totalDataLength} bytes")
 
-        if nRx == 12:
-            floats = [bytes_to_float(rxBuffer[i:i+4]) for i in range(0, 12, 4)]
-            for float in floats:
-                print("Valores floats recebidos:", {float} )
+            # Recebe os dados conforme o comprimento especificado
+            rxBuffer, nRx = com1.getData(totalDataLength)
+            print(f"Recebeu {nRx} bytes")
+            print("\n")
+
+            if nRx == totalDataLength and totalDataLength % 4 == 0:
+                # Processa cada grupo de 4 bytes como um float
+                floats = []
+                for i in range(0, nRx, 4):
+                    float_value = bytes_to_float(rxBuffer[i:i+4])
+                    floats.append(float_value)
+                for f in floats:
+                    print("Valor float recebido:", f)
+            else:
+                print("Número de bytes recebido é inadequado para a conversão esperada ou não é múltiplo de 4.")
         else:
-            print("Número de bytes recebido é inadequado.")
+            print("Falha ao receber o comprimento total dos dados.")
 
         print("\n")
         print("\n")
