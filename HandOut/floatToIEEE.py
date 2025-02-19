@@ -23,3 +23,7 @@ for i in x:
 
 #imprime a lista pra_enviar
 print(pra_enviar)
+
+for j in pra_enviar:
+    print(hex(j))
+#---------------------------------------------#
