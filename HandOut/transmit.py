@@ -25,6 +25,8 @@ def main():
         # Converte a lista de floats para o formato IEEE 754
         txBuffer = bytearray(float_to_ieee754(lista))
         print(txBuffer)
+        print(len(txBuffer))
+        
         print("Meu array de bytes tem tamanho {}" .format(len(txBuffer)))
         
         print("Transmissão iniciada!")
