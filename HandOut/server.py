@@ -57,10 +57,13 @@ def main():
         print("\n")
         print("\n")
 
-        print(f"OS DADOS OBTIDOS FORAM: {rxBuffer}")
+        num = int.from_bytes(rxBuffer, byteorder='big')
+
+        print(f"OS DADOS OBTIDOS FORAM: {num}")
         print("-------------------------")
         print("Comunicação encerrada")
         print("-------------------------")
+        print(type(rxBuffer))
         com1.disable()
         
     except Exception as erro:
