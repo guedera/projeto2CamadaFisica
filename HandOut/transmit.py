@@ -2,7 +2,7 @@ from enlace import *
 import time
 import numpy as np
 
-serialName = "/dev/ttyACM0"
+serialName = "COM7"
 
 def main():
     try:
@@ -11,9 +11,12 @@ def main():
         
         com1.enable()
 
-        time.sleep(.2)
+
+        print("comecando BS")
+        time.sleep(2)
         com1.sendData(b'00')
         time.sleep(1)
+        print("enviando bit de sacrificio")
         
         print("Abriu a comunicação")
         txBuffer = b'\x13' 
