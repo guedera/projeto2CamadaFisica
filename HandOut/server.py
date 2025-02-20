@@ -1,8 +1,11 @@
 from enlace import *
 import time
 from IEEEToFloat import ieee754_to_float
+from floatToIEEE import float_to_ieee754
+import numpy as np
 
 serialName = "/dev/ttyACM0"
+soma = 0
 
 def main():
     try:
@@ -42,11 +45,16 @@ def main():
                     floats.append(float_value)
                 for f in floats:
                     print("Valor float recebido:", f)
+                    soma += f
             else:
                 print("Número de bytes recebido é inadequado para a conversão esperada ou não é múltiplo de 4.")
         else:
             print("Falha ao receber o comprimento total dos dados.")
 
+        txBuffer = float_to_ieee754(soma)
+
+        com1.sendData(np.asarray(txBuffer))
+    
         print("\n")
         print("\n")
         print("Comunicação encerrada")
