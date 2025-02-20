@@ -55,10 +55,11 @@ def main():
         os.system('clear')
 
         print("Esperando a soma!")
-        rxBuffer, nRx = com1.getData(1)
+        rxBuffer, nRx = com1.getData(4)
         os.system('clear')
 
         print("Recebeu a soma!")
+        print(rxBuffer)
         retorno = ieee754_to_float(rxBuffer)
         print("O resultado da soma é: ", retorno)
         time.sleep(2)
