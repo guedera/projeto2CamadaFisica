@@ -2,7 +2,7 @@ from enlace import *
 import time
 from IEEEToFloat import ieee754_to_float
 
-serialName = "COM7"
+serialName = "/dev/ttyACM0"
 
 def main():
     try:
