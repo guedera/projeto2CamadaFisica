@@ -10,9 +10,9 @@ from IEEEToFloat import ieee754_to_float
 
 import os
 
-serialName = "/dev/ttyACM0"
+serialName = "COM8"
 
-lista = [1.3424, 54.45544, 200.002]
+lista = [1.3424, 54.45544, 200.002, 14.545454, 1.2323242435332, 1.346575688, 2.83492]
 soma_lista = sum(lista)
 
 def main():
@@ -20,13 +20,14 @@ def main():
         print("Iniciou o main")
         com1 = enlace(serialName)
         com1.enable()
-        os.system('clear')
 
         print("Enviando o byte de sacrifício")
         com1.sendData(b'00')
         print("Byte de sacrifício enviado!\n")
         time.sleep(2)
-        os.system('clear')
+
+        com1.rx.clearBuffer()
+        time.sleep(2)
 
         print("Vou mandar quantos números serão enviados!")
         txBuffer = bytearray([len(lista)*4])
@@ -35,7 +36,6 @@ def main():
         
         print("Enviado!")
         time.sleep(2)
-        os.system('clear')
 
         print("Abriu a comunicação! Vou enviar a lista de Floats!\n")
         
@@ -47,23 +47,24 @@ def main():
         com1.sendData(np.asarray(txBuffer))
         print("Enviado!")
         time.sleep(2)
-        os.system('clear')
 
         txSize = com1.tx.getStatus()
         print('enviou = {} bytes!' .format(txSize))
         time.sleep(2)
-        os.system('clear')
 
         print("Esperando a soma!")
         tempo_antes = time.time()
+        time.sleep(5)
         print("tempo atual começou a contar!")
 
         while tempo_antes - time.time() < 5:
             if com1.rx.getBufferLen() == 4:
                 break
             else:
-                print("deu time out.")
-                TimeoutError
+                print("Time out")
+                break
+
+
             
         rxBuffer, nRx = com1.getData(4)
 
