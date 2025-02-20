@@ -1,13 +1,16 @@
 from enlace import *
 import time
+
 from IEEEToFloat import ieee754_to_float
 from floatToIEEE import float_to_ieee754
+
 import numpy as np
 
 serialName = "/dev/ttyACM0"
-soma = 0
 
 def main():
+    soma = []
+    floats = []
     try:
         print("Iniciou o main")
         com1 = enlace(serialName)
@@ -39,19 +42,25 @@ def main():
 
             if nRx == totalDataLength and totalDataLength % 4 == 0:
                 # Processa cada grupo de 4 bytes como um float
-                floats = []
+                
                 for i in range(0, nRx, 4):
                     float_value = ieee754_to_float(rxBuffer[i:i+4])
                     floats.append(float_value)
+
                 for f in floats:
                     print("Valor float recebido:", f)
-                    soma += f
+                    
             else:
                 print("Número de bytes recebido é inadequado para a conversão esperada ou não é múltiplo de 4.")
         else:
             print("Falha ao receber o comprimento total dos dados.")
 
-        txBuffer = float_to_ieee754(soma)
+        print("Até aqui passou e não deu erro")
+        soma.append(sum(floats))
+
+        txBuffer = bytearray(float_to_ieee754(soma))
+        print (txBuffer)
+        print(len(txBuffer))
 
         com1.sendData(np.asarray(txBuffer))
     
