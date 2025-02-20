@@ -1,8 +1,13 @@
 from enlace import *
+
 import time
+
 import numpy as np
+
 from floatToIEEE import float_to_ieee754
+
 from IEEEToFloat import ieee754_to_float
+
 import os
 
 serialName = "/dev/ttyACM0"
@@ -32,6 +37,7 @@ def main():
         os.system('clear')
 
         print("Abriu a comunicação! Vou enviar a lista de Floats!\n")
+        
         # Converte a lista de floats para o formato IEEE 754
         txBuffer = bytearray(float_to_ieee754(lista))
         
