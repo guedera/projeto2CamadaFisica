@@ -1,9 +1,11 @@
 from enlace import *
 import time
 from IEEEToFloat import ieee754_to_float
+from floatToIEEE import float_to_ieee754
+import os
 
 serialName = "/dev/ttyACM0"
-
+sooma = 0
 def main():
     try:
         print("Iniciou o main")
@@ -42,10 +44,17 @@ def main():
                     floats.append(float_value)
                 for f in floats:
                     print("Valor float recebido:", f)
+                    soma += f
             else:
                 print("Número de bytes recebido é inadequado para a conversão esperada ou não é múltiplo de 4.")
         else:
             print("Falha ao receber o comprimento total dos dados.")
+
+        soma_byte = bytearray(float_to_ieee754(soma))
+        print("Enviando soma calculada")
+        com1.sendData(soma_byte)
+        print("Soma enviada")
+        os.system('clear')
 
         print("\n")
         print("\n")
