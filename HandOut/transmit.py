@@ -55,8 +55,18 @@ def main():
         os.system('clear')
 
         print("Esperando a soma!")
+        tempo_antes = time.time()
+        print("tempo atual começou a contar!")
+
+        while tempo_antes - time.time() < 5:
+            if com1.rx.getBufferLen() == 4:
+                break
+            else:
+                print("deu time out.")
+                TimeoutError
+            
         rxBuffer, nRx = com1.getData(4)
-        os.system('clear')
+
 
         print("Recebeu a soma!")
         print(rxBuffer)
@@ -64,10 +74,14 @@ def main():
         print("O resultado da soma é: ", retorno)
         time.sleep(2)
 
-        if soma_lista == retorno:
+        if (soma_lista - retorno)< 0.1:
             print("Soma correta!")
+            print(f" O valor recebido pelo server é : {retorno} e a soma da lista é {soma_lista}")
+
         else:
             print("Soma errada!")
+            print(f" O valor recebido pelo server é : {retorno} e a soma da lista é {soma_lista}")
+            print(f"Com uma diferença de {(soma_lista - retorno)}")
         time.sleep(2)
 
         print("-------------------------")
