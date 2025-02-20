@@ -1,6 +1,6 @@
 from enlace import *
 import time
-from IEEEToFloat import bytes_to_float
+from IEEEToFloat import ieee754_to_float
 
 serialName = "COM7"
 
@@ -38,7 +38,7 @@ def main():
                 # Processa cada grupo de 4 bytes como um float
                 floats = []
                 for i in range(0, nRx, 4):
-                    float_value = bytes_to_float(rxBuffer[i:i+4])
+                    float_value = ieee754_to_float(rxBuffer[i:i+4])
                     floats.append(float_value)
                 for f in floats:
                     print("Valor float recebido:", f)
