@@ -32,6 +32,7 @@ def main():
         txBuffer = bytearray([len(lista)*4])
         print("Estou enviando {} números flutuantes!\n" .format(len(lista)*4))
         com1.sendData(np.asarray(txBuffer))
+        
         print("Enviado!")
         time.sleep(2)
         os.system('clear')
