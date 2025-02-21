@@ -10,7 +10,7 @@ from IEEEToFloat import ieee754_to_float
 
 import os
 
-serialName = "COM8"
+serialName = "/dev/ttyACM1"
 
 lista = [1.3424, 54.45544, 200.002, 14.545454, 1.2323242435332, 1.346575688, 2.83492]
 soma_lista = sum(lista)
@@ -22,12 +22,11 @@ def main():
         com1.enable()
 
         print("Enviando o byte de sacrifício")
-        com1.sendData(b'00')
+        com1.sendData(b'0')
         print("Byte de sacrifício enviado!\n")
-        time.sleep(2)
+        time.sleep(.2)
 
         com1.rx.clearBuffer()
-        time.sleep(2)
 
         print("Vou mandar quantos números serão enviados!")
         txBuffer = bytearray([len(lista)*4])

@@ -19,13 +19,12 @@ def main():
         com1 = enlace(serialName)
         com1.enable()
         com1.rx.clearBuffer()
-
-        time.sleep(2.0)
+        com1.rx.clearBuffer()
 
         print("esperando 1 byte de sacrifício")
         com1.getData(1)
         com1.rx.clearBuffer()
-        time.sleep(2.0)
+        time.sleep(0.5)
        
         print("Abriu a comunicação!")
         print("\n")
@@ -61,6 +60,7 @@ def main():
             print("Falha ao receber o comprimento total dos dados.")
 
         soma.append(sum(floats))
+        soma[0]=+ 20.0
 
         txBuffer = bytearray(float_to_ieee754(soma))
 
