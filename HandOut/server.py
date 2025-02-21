@@ -27,7 +27,7 @@ def main():
         print("Abriu a comunicação")
         print("\n")
         print("Recepção iniciada!")
-        print("\n")
+        print("\n")  #caramba, não sei se isso é necessário
 
         # Recebe o byte que indica o comprimento total dos dados a receber em bytes
         lengthData, lengthReceived = com1.getData(1)
